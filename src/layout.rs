@@ -26,9 +26,9 @@ impl Layout {
 
     fn parse_layout_name(layout_name: &str) -> Result<String, Box<dyn std::error::Error>> {
         let (language, variant) = layout_name.split_once(':').ok_or("Invalid layout name.")?;
-        let layouts_dir = std::env::var("LAYOUTS_DIR").unwrap_or_else(|_| "layouts".into());
+        const LAYOUTS_DIR: &str = env!("LAYOUTS_DIR");
 
-        Ok(format!("{}/{}/{}.json", layouts_dir, language, variant))
+        Ok(format!("{}/{}/{}.json", LAYOUTS_DIR, language, variant))
     }
 
     pub fn get_character_index(&self, character: char) -> Option<(KeyFamily, usize)> {

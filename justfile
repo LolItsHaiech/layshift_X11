@@ -2,7 +2,7 @@ binary_dir := "/usr/local/bin/"
 layouts_dir := "/usr/local/share/layshift/layouts"
 
 build:
-    cargo build
+    LAYOUTS_DIR="layouts/" cargo build
 build-release:
     LAYOUTS_DIR={{layouts_dir}} cargo build --release
 install: build-release
