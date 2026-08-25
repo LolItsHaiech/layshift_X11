@@ -7,12 +7,16 @@ mod layout;
 mod test;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let args: Vec<String> = env::args().collect();
+    let mut args = env::args();
+
+    args.next();
+    let source = args.next().ok_or("Missing source layout.")?;
+    let target = args.next().ok_or("Missing target layout.")?;
+
+    let source_layout = layout::Layout::new(&source)?;
+    let target_layout = layout::Layout::new(&target)?;
+
     let text = clipboard::read()?;
-
-    let source_layout = layout::Layout::new(&args[1])?;
-    let target_layout = layout::Layout::new(&args[2])?;
-
     let result = layout::map_string(&text, &source_layout, &target_layout);
     clipboard::write(&result)?;
     Ok(())
