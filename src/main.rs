@@ -1,5 +1,6 @@
 mod cli;
 mod clipboard;
+mod config;
 mod layout;
 
 #[cfg(test)]

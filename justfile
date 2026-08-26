@@ -1,18 +1,18 @@
 binary_dir := "/usr/local/bin/"
-layouts_dir := "/usr/local/share/layshift/layouts"
+data_dir := "/usr/local/share/layshift"
 
 build:
-    LAYOUTS_DIR="layouts/" cargo build
+    DATA_DIR="." cargo build
 run *args: build
     ./target/debug/layshift {{args}}
 test:
-    LAYOUTS_DIR="layouts/" cargo test
+    DATA_DIR="." cargo test
 build-release:
-    LAYOUTS_DIR={{layouts_dir}} cargo build --release
+    DATA_DIR={{data_dir}} cargo build --release
 install: build-release
     sudo install -Dm755 target/release/layshift {{binary_dir}}/layshift
-    sudo mkdir -p {{layouts_dir}}
-    sudo cp -r layouts/. {{layouts_dir}}/
-uninstalll:
+    sudo mkdir -p {{data_dir}}/layouts
+    sudo cp -r layouts/. {{data_dir}}/layouts/
+uninstall:
     sudo rm -f {{binary_dir}}/layshift
-    sudo rm -rf {{layouts_dir}}
+    sudo rm -rf {{data_dir}}

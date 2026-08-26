@@ -1,6 +1,8 @@
+use std::fs;
+
 use clap::{Parser, Subcommand};
 
-use crate::{clipboard, layout};
+use crate::{clipboard, config, layout};
 
 #[derive(Parser, Debug)]
 #[command(name = "layshift")]
@@ -12,6 +14,7 @@ pub struct Cli {
 #[derive(Subcommand, Debug)]
 enum Commands {
     Map { source: String, target: String },
+    SetDefault { source: String, target: String },
 }
 
 impl Cli {
@@ -20,6 +23,7 @@ impl Cli {
 
         match cli.command {
             Commands::Map { source, target } => Cli::map(source, target),
+            Commands::SetDefault { source, target } => Cli::set_default(source, target),
         }
     }
 
@@ -31,6 +35,12 @@ impl Cli {
         let result = layout::map_string(&text, &source_layout, &target_layout);
 
         clipboard::write(&result)?;
+        Ok(())
+    }
+
+    fn set_default(source: String, target: String) -> Result<(), Box<dyn std::error::Error>> {
+        let result = format!("source = \"{}\"\narget = \"{}\"\n", source, target);
+        fs::write(config::get_config_file(), result)?;
         Ok(())
     }
 }
