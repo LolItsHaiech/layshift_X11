@@ -35,13 +35,7 @@ Layouts are identified using:
 
 ## Installation
 ### Install from source code
-Clone the repository with:
-
-```git
-git clone https://github.com/MJafaryan/layshift.git
-```
-
-Go to the project directory and run this `just` command:
+Clone the repository or download the latest release then Go to the project directory and run this `just` command:
 
 ```
 just install
