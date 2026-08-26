@@ -3,6 +3,10 @@ layouts_dir := "/usr/local/share/layshift/layouts"
 
 build:
     LAYOUTS_DIR="layouts/" cargo build
+run *args: build
+    ./target/debug/layshift {{args}}
+test:
+    LAYOUTS_DIR="layouts/" cargo test
 build-release:
     LAYOUTS_DIR={{layouts_dir}} cargo build --release
 install: build-release
