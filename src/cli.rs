@@ -54,7 +54,7 @@ impl Cli {
     }
 
     fn set_default(source: String, target: String) -> Result<(), Box<dyn std::error::Error>> {
-        let result = format!("source = \"{}\"\narget = \"{}\"\n", source, target);
+        let result = format!("source = \"{}\"\ntarget = \"{}\"\n", source, target);
         fs::write(config::get_config_file(), result)?;
         Ok(())
     }
