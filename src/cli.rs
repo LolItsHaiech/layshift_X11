@@ -13,8 +13,14 @@ pub struct Cli {
 
 #[derive(Subcommand, Debug)]
 enum Commands {
-    Map { source: String, target: String },
-    SetDefault { source: String, target: String },
+    Map {
+        source: Option<String>,
+        target: Option<String>,
+    },
+    SetDefault {
+        source: String,
+        target: String,
+    },
 }
 
 impl Cli {
@@ -27,7 +33,16 @@ impl Cli {
         }
     }
 
-    fn map(source: String, target: String) -> Result<(), Box<dyn std::error::Error>> {
+    fn map(
+        source: Option<String>,
+        target: Option<String>,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        let (source, target) = match (source, target) {
+            (None, None) => config::get_default_layouts()?,
+            (Some(source), Some(target)) => (source, target),
+            _ => return Err("Both source and target layouts are required.".into()),
+        };
+
         let source_layout = layout::Layout::new(&source)?;
         let target_layout = layout::Layout::new(&target)?;
 
