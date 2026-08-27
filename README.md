@@ -1,6 +1,8 @@
 # layshift
 A small Wayland clipboard tool for converting text between keyboard layouts.
 
+![preview](preview.gif)
+
 ## How it works
 It read the current text from clipboard then map it to the target layout and writes the result back to the clipboard.
 
