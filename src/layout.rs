@@ -61,11 +61,8 @@ fn map_character(character: char, source_layout: &Layout, target_layout: &Layout
 }
 
 pub fn map_string(string: &str, source_layout: &Layout, target_layout: &Layout) -> String {
-    let mut result = String::new();
-
-    for character in string.chars() {
-        result.push(map_character(character, source_layout, target_layout))
-    }
-
-    result
+    string
+        .chars()
+        .map(|character| map_character(character, source_layout, target_layout))
+        .collect()
 }
