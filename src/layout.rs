@@ -1,5 +1,7 @@
 use serde::Deserialize;
 
+use crate::config;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum KeyFamily {
     Normal,
@@ -26,9 +28,13 @@ impl Layout {
 
     fn parse_layout_name(layout_name: &str) -> Result<String, Box<dyn std::error::Error>> {
         let (language, variant) = layout_name.split_once(':').ok_or("Invalid layout name.")?;
-        const LAYOUTS_DIR: &str = env!("LAYOUTS_DIR");
 
-        Ok(format!("{}/{}/{}.json", LAYOUTS_DIR, language, variant))
+        Ok(format!(
+            "{}/{}/{}.json",
+            config::get_layout_dir(),
+            language,
+            variant
+        ))
     }
 
     pub fn get_character_index(&self, character: char) -> Option<(KeyFamily, usize)> {
