@@ -22,5 +22,10 @@ pub fn get_default_layouts() -> Result<(String, String), Box<dyn std::error::Err
 }
 
 pub fn get_config_file() -> String {
-    format!("{}/config.toml", DATA_DIR) // TODO: this address is only for testing, fix it before release
+    format!("{}/config.toml", get_config_dir())
+}
+
+pub fn get_config_dir() -> String {
+    let home = std::env::var("HOME").expect("HOME is not set!");
+    format!("{}/.config/layshift", home)
 }

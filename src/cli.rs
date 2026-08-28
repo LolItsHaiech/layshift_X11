@@ -59,7 +59,10 @@ impl Cli {
 
     fn set_default(source: String, target: String) -> Result<(), Box<dyn std::error::Error>> {
         let result = format!("source = \"{}\"\ntarget = \"{}\"\n", source, target);
+
+        fs::create_dir_all(config::get_config_dir())?;
         fs::write(config::get_config_file(), result)?;
+
         Ok(())
     }
 
