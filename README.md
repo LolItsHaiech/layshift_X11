@@ -4,25 +4,56 @@ A small Wayland clipboard tool for converting text between keyboard layouts.
 ![preview](preview.gif)
 
 ## How it works
-It read the current text from clipboard then map it to the target layout and writes the result back to the clipboard.
+It read the current text from clipboard, maps it to the target layout, and writes the result back to the clipboard.
 
-```
+```text
 text -copy/cut-> clipboard -wl-paste-> layshift -wl-copy-> clipboard -paste-> result
 ```
 
-## Usage
-Using layshift is simple, just run the following command to change the text layout:
+## Commands
+### map
+Map text between two layouts
 
+```bash
+layshift map <source> <target>
 ```
-layshift <source_layout> <target_layout>
+
+- By setting default layouts, you can use `map` command without specifying them:
+
+```bash
+layshift map
 ```
 
 - For faster and easier use, it is recommended to bind layshift to a keyboard shortcut.
 
-### Layouts
+### set-default
+Set the default source and target layouts:
+
+```bash
+layshift set-default <source> <target>
+```
+
+- The layout configuration will save in `~/.config/layshift/config.toml`
+
+### list
+Lists all available languages:
+
+```bash
+laysift list
+```
+
+List layouts available for a language:
+
+```bash
+laysift list <language>
+```
+
+- Languages can be specified by both **name** and **symbol**.
+
+## Layouts
 Layouts are identified using:
 
-```
+```text
 <language>:<variant>
 ```
 
