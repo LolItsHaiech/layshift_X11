@@ -2,7 +2,7 @@ use std::fs;
 
 use clap::{Parser, Subcommand};
 
-use crate::{clipboard, config, layout};
+use crate::{clipboard, config, layout, metadata};
 
 #[derive(Parser, Debug)]
 #[command(name = "layshift")]
@@ -21,6 +21,9 @@ enum Commands {
         source: String,
         target: String,
     },
+    List {
+        language: Option<String>,
+    },
 }
 
 impl Cli {
@@ -30,6 +33,7 @@ impl Cli {
         match cli.command {
             Commands::Map { source, target } => Cli::map(source, target),
             Commands::SetDefault { source, target } => Cli::set_default(source, target),
+            Commands::List { language } => Cli::list(language),
         }
     }
 
@@ -56,6 +60,31 @@ impl Cli {
     fn set_default(source: String, target: String) -> Result<(), Box<dyn std::error::Error>> {
         let result = format!("source = \"{}\"\ntarget = \"{}\"\n", source, target);
         fs::write(config::get_config_file(), result)?;
+        Ok(())
+    }
+
+    fn list(language: Option<String>) -> Result<(), Box<dyn std::error::Error>> {
+        match language {
+            None => {
+                let languages = metadata::get_languages_list()?;
+
+                for language in languages {
+                    print!(
+                        "{:<30} {} layouts\n",
+                        format!("{}({})", language.name, language.symbol),
+                        language.layouts.len()
+                    );
+                }
+            }
+            Some(language) => {
+                let layouts = metadata::get_language_layouts(&language)?;
+
+                for layout in layouts {
+                    print!("{} ", layout);
+                }
+                print!("\n")
+            }
+        }
         Ok(())
     }
 }

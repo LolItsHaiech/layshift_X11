@@ -2,6 +2,7 @@ mod cli;
 mod clipboard;
 mod config;
 mod layout;
+mod metadata;
 
 #[cfg(test)]
 mod test;

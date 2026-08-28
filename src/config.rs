@@ -8,6 +8,10 @@ struct Config {
     target: String,
 }
 
+pub fn get_metadata_file() -> String {
+    format!("{}/metadata.toml", get_layout_dir())
+}
+
 pub fn get_layout_dir() -> String {
     format!("{}/layouts/", DATA_DIR)
 }

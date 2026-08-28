@@ -1,0 +1,9 @@
+[languages.english]
+name = "English"
+symbol = "en"
+layouts = ["qwerty"]
+
+[languages.persian]
+name = "Persian"
+symbol = "fa"
+layouts = ["winkey"]
