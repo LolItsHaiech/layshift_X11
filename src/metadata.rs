@@ -25,7 +25,7 @@ pub fn get_language_layouts(language: &str) -> Result<Vec<String>, Box<dyn std::
     let metadata = get_metadata()?;
 
     for lang in metadata.languages.into_values() {
-        if lang.name == language || lang.symbol == language {
+        if lang.name.to_lowercase() == language || lang.symbol == language {
             return Ok(lang.layouts);
         }
     }
