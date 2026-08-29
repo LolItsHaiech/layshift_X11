@@ -1,3 +1,8 @@
+[languages.german]
+name = "German"
+symbol = "de"
+layouts = ["qwertz"]
+
 [languages.english]
 name = "English"
 symbol = "en"
@@ -6,4 +11,14 @@ layouts = ["qwerty"]
 [languages.persian]
 name = "Persian"
 symbol = "fa"
-layouts = ["winkey"]
+layouts = ["winkey", "standard"]
+
+[languages.french]
+name = "French"
+symbol = "fr"
+layouts = ["azerty"]
+
+[languages.russian]
+name = "Russian"
+symbol = "ru"
+layouts = ["standard"]
