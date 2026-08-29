@@ -49,6 +49,7 @@ laysift list <language>
 ```
 
 - Languages can be specified by both **name** and **symbol**.
+- When using the language **name**, you should enter it using lowercase letters only.
 
 ## Layouts
 Layouts are identified using:
